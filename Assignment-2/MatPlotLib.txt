@@ -1,0 +1,12 @@
+#A2Q1
+
+import matplotlib.pyplot as plt
+import pandas as pd
+
+iris_df = pd.read_csv('iris.csv')
+
+plt.scatter(iris_df['sepal.length'], iris_df['sepal.width'])
+plt.title('Scatter Plot')
+plt.xlabel('Sepal Length')
+plt.ylabel('Sepal Width')
+plt.show()

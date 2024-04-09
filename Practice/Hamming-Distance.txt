@@ -1,0 +1,22 @@
+def hamming_distance(str1, str2):
+    if len(str1) != len(str2):
+        raise ValueError("Strings must be of equal length")
+
+    distance = 0
+    for bit1, bit2 in zip(str1, str2):
+        if bit1 != bit2:
+            distance += 1
+    return distance
+
+def main():
+    binary_str1 = input("Enter the first binary string: ")
+    binary_str2 = input("Enter the second binary string: ")
+
+    try:
+        distance = hamming_distance(binary_str1, binary_str2)
+        print("Hamming distance:", distance)
+    except ValueError as e:
+        print("Error:", e)
+
+if __name__ == "__main__":
+    main()

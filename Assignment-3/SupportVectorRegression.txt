@@ -1,0 +1,33 @@
+#SET-A - Q3-B
+
+import numpy as np
+import pandas as pd
+from sklearn.svm import SVR
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+
+# Load the dataset
+dataset = pd.read_csv('Position_Salaries.csv')
+
+# Separate features (X) and target variable (y)
+X = dataset.iloc[:, 1:2].values
+y = dataset.iloc[:, 2].values
+
+# Feature Scaling
+sc_X = StandardScaler()
+sc_y = StandardScaler()
+X = sc_X.fit_transform(X)
+y = sc_y.fit_transform(y.reshape(-1, 1)).reshape(-1)
+
+# SVR model
+regressor = SVR(kernel='rbf')
+regressor.fit(X, y)
+
+# Visualize the SVR results
+plt.scatter(X, y, color='red', label='Actual data')
+plt.plot(X, regressor.predict(X), color='blue', label='SVR')
+plt.title('Support Vector Regression')
+plt.xlabel('Position level (Scaled)')
+plt.ylabel('Salary (Scaled)')
+plt.legend()
+plt.show()

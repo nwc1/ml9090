@@ -1,0 +1,20 @@
+#A2-B-Q1
+
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+iris_data = pd.read_csv('iris.csv')
+
+print("Original dataset:")
+print(iris_data.head())
+
+X = iris_data.drop('variety', axis=1)
+y = iris_data['variety']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4)
+
+print("\nShapes of training and test sets:")
+print("X_train shape:", X_train.shape)
+print("X_test shape:", X_test.shape)
+print("y_train shape:", y_train.shape)
+print("y_test shape:", y_test.shape)

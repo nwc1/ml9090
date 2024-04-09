@@ -1,0 +1,18 @@
+#A2-B-Q2
+
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+data = pd.read_csv('data_preprocess.csv')
+
+print("Original dataset:")
+print(data.head())
+
+all_col = data.select_dtypes(include=['number']).columns
+
+scaler = StandardScaler()
+
+data[all_col] = scaler.fit_transform(data[all_col])
+
+print("\nScaled dataset:")
+print(data.head())

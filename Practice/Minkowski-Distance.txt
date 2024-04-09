@@ -1,0 +1,19 @@
+#Q3e - Practice
+
+def minkowski_distance(point1, point2, p):
+    if len(point1) != len(point2):
+        raise ValueError("Points must have the same number of dimensions")
+
+    distance = 0
+    for i in range(len(point1)):
+        distance += abs(point1[i] - point2[i]) ** p
+
+    distance = distance ** (1 / p)
+    return distance
+
+point1 = (1, 2, 3)
+point2 = (4, 5, 6)
+p = 3
+
+distance = minkowski_distance(point1, point2, p)
+print(f"The Minkowski distance between {point1} and {point2} with p={p} is {distance:.2f}")

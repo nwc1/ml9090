@@ -1,0 +1,28 @@
+#SET-A - Q3-A
+
+import numpy as np
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+import matplotlib.pyplot as plt
+
+# Load the dataset
+dataset = pd.read_csv('Position_Salaries.csv')
+
+# Separate features (X) and target variable (y)
+X = dataset.iloc[:, 1:2].values
+y = dataset.iloc[:, 2].values
+
+# Decision Tree Regression model
+regressor = DecisionTreeRegressor(random_state=0)
+regressor.fit(X, y)
+
+# Visualize the Decision Tree Regression results (for higher resolution and smoother curve)
+X_grid = np.arange(min(X), max(X), 0.01)  # Create a finer grid of points
+X_grid = X_grid.reshape((len(X_grid), 1))
+plt.scatter(X, y, color='red', label='Actual data')
+plt.plot(X_grid, regressor.predict(X_grid), color='blue', label='Decision Tree Regression')
+plt.title('Decision Tree Regression')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.legend()
+plt.show()

@@ -1,0 +1,11 @@
+transaction,Product
+1,"beer,potato chips"
+2,"egg,flour,butter,cheese"
+3,"egg,flour,butter,beer,potato chips"
+4,"wine,cheese"
+5,potato chips
+6,"egg,flour,butter,wine,cheese"
+7,"egg,flour,butter,beer,potato chips"
+8,"beer,wine"
+9,"beer,potato chips"
+10,"beer,wine,chesse"

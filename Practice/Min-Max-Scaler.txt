@@ -1,0 +1,17 @@
+#Q2 - Practice
+
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+df = pd.read_csv('train.csv')
+
+print("Original Dataset:")
+print(df.head())
+
+features_to_scale = df.columns
+
+scaler = MinMaxScaler()
+df[features_to_scale] = scaler.fit_transform(df[features_to_scale])
+
+print("\nDataset after Min-Max scaling:")
+print(df.head())

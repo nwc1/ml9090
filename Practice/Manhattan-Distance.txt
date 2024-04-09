@@ -1,0 +1,24 @@
+#Q3b - Practice
+
+def manhattan_distance(point1, point2):
+    if len(point1) != len(point2):
+        raise ValueError("Points must have the same number of dimensions")
+
+    distance = sum(abs(p1 - p2) for p1, p2 in zip(point1, point2))
+    return distance
+
+def main():
+    point_2d_1 = (1, 2)
+    point_2d_2 = (4, 6)
+
+    point_3d_1 = (1, 2, 3)
+    point_3d_2 = (4, 6, 8)
+
+    distance_2d = manhattan_distance(point_2d_1, point_2d_2)
+    distance_3d = manhattan_distance(point_3d_1, point_3d_2)
+
+    print("Manhattan distance in 2D space:", distance_2d)
+    print("Manhattan distance in 3D space:", distance_3d)
+
+if __name__ == "__main__":
+    main()

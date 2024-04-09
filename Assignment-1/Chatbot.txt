@@ -1,0 +1,25 @@
+A1Q1
+import random
+
+def simple_chatbot():
+    # Define a list of greetings
+    greetings = ["Hello!", "Hi there!", "Hey!", "Greetings!"]
+
+    # Define a list of responses
+    responses = ["I'm doing well, thank you.", "Not too bad, how about you?", "I'm just a computer program, so I don't have feelings, but thanks for asking!"]
+
+    print(random.choice(greetings))
+
+    while True:
+        user_input = input("You: ").lower()
+
+        # Check if the user wants to end the conversation
+        if user_input in ["bye", "exit", "quit"]:
+            print("Bot: Goodbye! Have a great day.")
+            break
+
+        # Provide a random response from the predefined list
+        print("Bot:", random.choice(responses))
+
+if __name__ == "__main__":
+    simple_chatbot()

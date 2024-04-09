@@ -1,0 +1,15 @@
+#Q6 - Practice
+
+import pandas as pd
+
+def one_hot_encode_with_missing(data, column):
+    one_hot_encoded = pd.get_dummies(data[column], prefix=column, dummy_na=True)
+    return pd.concat([data.drop(columns=[column]), one_hot_encoded], axis=1)
+
+# Load dataset
+file_path = "iris.csv"  # Change to your file path
+data = pd.read_csv(file_path)
+
+# Example usage
+encoded_data = one_hot_encode_with_missing(data, "variety")
+print(encoded_data.head())

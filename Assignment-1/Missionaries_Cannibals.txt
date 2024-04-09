@@ -1,0 +1,89 @@
+from collections import deque
+
+def is_valid(state):
+    missionaries_left, cannibals_left, boat_left, missionaries_right, cannibals_right = state
+
+    # Check if number of missionaries is not negative and within the limits
+    if missionaries_left < 0 or missionaries_left > 3 or missionaries_right < 0 or missionaries_right > 3:
+        return False
+
+    # Check if number of cannibals is not negative and within the limits
+    if cannibals_left < 0 or cannibals_left > 3 or cannibals_right < 0 or cannibals_right > 3:
+        return False
+
+    # Check if missionaries are outnumbered by cannibals on either side
+    if missionaries_left > 0 and missionaries_left < cannibals_left:
+        return False
+    if missionaries_right > 0 and missionaries_right < cannibals_right:
+        return False
+
+    return True
+
+def generate_next_states(state):
+    next_states = []
+    missionaries_left, cannibals_left, boat_left, missionaries_right, cannibals_right = state
+
+    # If the boat is on the left side
+    if boat_left:
+        for i in range(3 + 1):
+            for j in range(3 + 1):
+                if 1 <= i + j <= 2:
+                    new_state = (
+                        missionaries_left - i,
+                        cannibals_left - j,
+                        not boat_left,
+                        missionaries_right + i,
+                        cannibals_right + j
+                    )
+                    if is_valid(new_state):
+                        next_states.append(new_state)
+    else:
+        for i in range(3 + 1):
+            for j in range(3 + 1):
+                if 1 <= i + j <= 2:
+                    new_state = (
+                        missionaries_left + i,
+                        cannibals_left + j,
+                        not boat_left,
+                        missionaries_right - i,
+                        cannibals_right - j
+                    )
+                    if is_valid(new_state):
+                        next_states.append(new_state)
+
+    return next_states
+
+def bfs(initial_state, goal_state):
+    visited = set()
+    queue = deque([(initial_state, [])])
+
+    while queue:
+        current_state, path = queue.popleft()
+        visited.add(current_state)
+
+        if current_state == goal_state:
+            return path + [current_state]
+
+        for next_state in generate_next_states(current_state):
+            if next_state not in visited:
+                queue.append((next_state, path + [current_state]))
+
+    return None
+
+def display_solution(solution):
+    if solution is None:
+        print("No solution found.")
+    else:
+        for i, state in enumerate(solution):
+            print(f"Step {i + 1}:")
+            print(f"Missionaries Left: {state[0]}, Cannibals Left: {state[1]}, Boat Position: {'Left' if state[2] else 'Right'}, Missionaries Right: {state[3]}, Cannibals Right: {state[4]}")
+            print()
+        print("Goal reached!")
+
+# Example Usage:
+initial_state = (3, 3, 1, 0, 0)  # (missionaries_left, cannibals_left, boat_left, missionaries_right, cannibals_right)
+goal_state = (0, 0, 0, 3, 3)
+
+solution = bfs(initial_state, goal_state)
+print("Solution for Missionaries and Cannibals Problem:")
+display_solution(solution)

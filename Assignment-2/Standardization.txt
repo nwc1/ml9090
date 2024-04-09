@@ -1,0 +1,21 @@
+#A2Q4
+
+import pandas as pd
+
+df = pd.read_csv('Salary_Data.csv')
+print('\nOriginal Dataset\n')
+print(df)
+
+def standard(column):
+    mean = column.mean()
+    stdev = column.std()
+    stand_col = (column - mean)/stdev
+    return stand_col
+
+all_col = df.select_dtypes(include=['number']).columns
+
+for col in all_col:
+    df[col] = standard(df[col])
+
+print("\nDataset After Standardization\n")
+print(df)

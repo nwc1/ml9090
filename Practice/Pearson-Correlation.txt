@@ -1,0 +1,21 @@
+#Q4 - Practice
+
+def pearson_correlation(x, y):
+    n = len(x)
+
+    mean_x = sum(x) / n
+    mean_y = sum(y) / n
+
+    numerator = sum((x[i] - mean_x) * (y[i] - mean_y) for i in range(n))
+    denominator_x = sum((x[i] - mean_x) ** 2 for i in range(n))
+    denominator_y = sum((y[i] - mean_y) ** 2 for i in range(n))
+
+    correlation = numerator / ((denominator_x * denominator_y) ** 0.5)
+
+    return correlation
+
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 4, 5, 6]
+
+correlation_coefficient = pearson_correlation(x, y)
+print(f"The Pearson correlation coefficient between x and y is: {correlation_coefficient:.2f}")

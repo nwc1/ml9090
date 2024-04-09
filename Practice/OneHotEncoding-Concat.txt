@@ -1,0 +1,24 @@
+#Q5 - Practice
+
+import pandas as pd
+
+def one_hot_encode(df, columns):
+    """Perform one-hot encoding on categorical columns within a pandas DataFrame."""
+    encoded_df = pd.get_dummies(df, columns=columns)
+    return pd.concat([df, encoded_df], axis=1)
+
+data = {
+    'Name': ['John', 'Alice', 'Bob', 'Jane'],
+    'Gender': ['Male', 'Female', 'Male', 'Female'],
+    'City': ['New York', 'Los Angeles', 'Chicago', 'Houston']
+}
+
+df = pd.DataFrame(data)
+
+categorical_columns = ['Gender', 'City']
+df_encoded = one_hot_encode(df, columns=categorical_columns)
+
+print("Original DataFrame:")
+print(df)
+print("\nDataFrame after one-hot encoding:")
+print(df_encoded)

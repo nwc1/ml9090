@@ -1,0 +1,22 @@
+#A2Q3
+
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+iris_df = pd.read_csv('iris.csv')
+
+
+le = LabelEncoder()
+one_hot_encoder = OneHotEncoder()
+
+
+for col in iris_df.select_dtypes(include='object').columns:
+    iris_df[col] = le.fit_transform(iris_df[col])
+
+iris_df_one_hot_encoded = pd.get_dummies(iris_df, columns=['variety'])
+
+print("\nDataset after Label Encoding:")
+print(iris_df)
+
+print("\nDataset after One-Hot Encoding:")
+print(iris_df_one_hot_encoded)

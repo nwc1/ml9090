@@ -1,0 +1,40 @@
+#SET-A - Q2
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.metrics import mean_squared_error
+data = pd.read_csv("Position_Salaries.csv")
+
+X = data.iloc[:, 1:2].values
+y = data.iloc[:, 2].values
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+poly_reg = PolynomialFeatures(degree=4)
+X_poly = poly_reg.fit_transform(X)
+
+
+lin_reg = LinearRegression()
+lin_reg.fit(X_poly, y)
+
+
+plt.scatter(X, y, color='red')
+plt.plot(X, lin_reg.predict(poly_reg.fit_transform(X)), color='blue')
+plt.title('Polynomial Regression')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
+
+
+position_level = 6.5
+salary_pred = lin_reg.predict(poly_reg.fit_transform([[position_level]]))
+print("Predicted Salary for Position Level {}: ${}".format(position_level, salary_pred[0]))
+
+y_pred = lin_reg.predict(poly_reg.fit_transform(X_test))
+mse = mean_squared_error(y_test, y_pred)
+print("Mean Squared Error:", mse)

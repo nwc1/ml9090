@@ -1,0 +1,60 @@
+import heapq
+
+def add_edge(graph, u, v, weight=None):
+    if u not in graph:
+        graph[u] = []
+    if v not in graph:
+        graph[v] = []
+
+    # Assuming default weight of 1 if not provided
+    weight = weight if weight is not None else 1
+
+    graph[u].append((v, weight))
+    graph[v].append((u, weight))  # Assuming an undirected graph
+
+def best_first_search(graph, start, goal, heuristic_values):
+    visited = set()
+    priority_queue = [(heuristic_values[start], start)]  # Priority queue to store (priority, node) pairs
+
+    while priority_queue:
+        _, current_node = heapq.heappop(priority_queue)
+        print(current_node, end=' ')
+
+        if current_node == goal:
+            print("\nGoal reached!")
+            return
+
+        visited.add(current_node)
+
+        for neighbor, weight in graph[current_node]:
+            if neighbor not in visited:
+                heapq.heappush(priority_queue, (heuristic_values[neighbor], neighbor))
+
+# Example Usage:
+graph = {}
+add_edge(graph, 'A', 'B')
+add_edge(graph, 'A', 'C')
+add_edge(graph, 'B', 'D')
+add_edge(graph, 'B', 'E')
+add_edge(graph, 'C', 'F')
+add_edge(graph, 'D', 'G')
+add_edge(graph, 'E', 'H')
+add_edge(graph, 'F', 'I')
+
+start_node = 'A'
+goal_node = 'I'
+
+heuristic_values = {
+    'A': 12,
+    'B': 8,
+    'C': 15,
+    'D': 1,
+    'E': 8,
+    'F': 8,
+    'G': 7,
+    'H': 5,
+    'I': 0
+}
+
+print(f"Best-First Search Traversal from {start_node} to {goal_node}:")
+best_first_search(graph, start_node, goal_node, heuristic_values)

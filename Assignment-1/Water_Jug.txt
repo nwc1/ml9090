@@ -1,0 +1,43 @@
+def water_jug_problem(capacity_a, capacity_b, target):
+    state_a, state_b = 0, 0  # Initial states of the jugs
+    print(f"Initial State: Jug A={state_a}, Jug B={state_b}")
+
+    while state_a != target or state_b != target:
+        # Fill jug A to its full capacity
+        if state_a < capacity_a:
+            state_a = capacity_a
+            print(f"Fill Jug A: Jug A={state_a}, Jug B={state_b}")
+
+        # Pour water from jug A to jug B
+        pour = min(state_a, capacity_b - state_b)
+        state_a -= pour
+        state_b += pour
+        print(f"Pour water from Jug A to Jug B: Jug A={state_a}, Jug B={state_b}")
+
+        # Check if the target is reached
+        if state_a == target or state_b == target:
+            break
+
+        # Empty jug B
+        if state_b == capacity_b:
+            state_b = 0
+            print(f"Empty Jug B: Jug A={state_a}, Jug B={state_b}")
+            
+            
+        # Pour water from jug B to jug A
+        pour = min(state_b, capacity_a - state_a)
+        state_a += pour
+        state_b -= pour
+        print(f"Pour water from Jug B to Jug A: Jug A={state_a}, Jug B={state_b}")
+
+        
+        # Pour water from jug A to jug B
+        pour = min(state_a, capacity_b - state_b)
+        state_a -= pour
+        state_b += pour
+        print(f"Pour water from Jug A to Jug B: Jug A={state_a}, Jug B={state_b}")
+        
+
+    print(f"Target reached! Jug A={state_a}, Jug B={state_b}")
+
+water_jug_problem(4, 3, 2)

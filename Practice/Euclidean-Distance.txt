@@ -1,0 +1,27 @@
+#Q3a - Practice
+
+import math
+
+def euclidean_distance(point1, point2):
+    if len(point1) != len(point2):
+        raise ValueError("Points must have the same number of dimensions")
+
+    squared_distance = sum((p1 - p2) ** 2 for p1, p2 in zip(point1, point2))
+    return math.sqrt(squared_distance)
+   
+
+def main():
+    point_2d_1 = (1, 2)
+    point_2d_2 = (4, 6)
+
+    point_3d_1 = (1, 2, 3)
+    point_3d_2 = (4, 6, 8)
+
+    distance_2d = euclidean_distance(point_2d_1, point_2d_2)
+    distance_3d = euclidean_distance(point_3d_1, point_3d_2)
+
+    print("Euclidean distance in 2D space:", distance_2d)
+    print("Euclidean distance in 3D space:", distance_3d)
+
+if __name__ == "__main__":
+    main()

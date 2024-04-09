@@ -1,0 +1,51 @@
+pip install mlxtend
+
+class Eclat:
+    def __init__(self, min_support):
+        self.min_support = min_support
+        self.itemsets = {}
+
+    def load_data(self, dataset):
+        self.transactions = dataset
+
+    def get_itemsets(self, items, prefix, support):
+        for i, item in enumerate(sorted(items)):
+            new_prefix = prefix + [item]
+            new_support = support
+            for transaction in self.transactions:
+                if set(new_prefix).issubset(transaction):
+                    new_support += 1
+            if new_support >= self.min_support:
+                self.itemsets[frozenset(new_prefix)] = new_support
+                new_items = items[i+1:]
+                self.get_itemsets(new_items, new_prefix, new_support)
+
+    def fit(self):
+        self.itemsets = {}
+        items = set()
+        for transaction in self.transactions:
+            items |= set(transaction)
+        self.get_itemsets(list(items), [], 0)
+
+    def print_itemsets(self):
+        for itemset, support in self.itemsets.items():
+            print(f"{list(itemset)} - support: {support}")
+
+
+# Example usage:
+if __name__ == "__main__":
+    # Example dataset
+    dataset = [
+        {"bread", "milk"},
+        {"bread", "diaper", "beer", "egg"},
+        {"milk", "diaper", "beer", "cola"},
+        {"bread", "milk", "diaper", "beer"},
+        {"bread", "milk", "diaper", "cola"}
+    ]
+
+    eclat = Eclat(min_support=2)
+    eclat.load_data(dataset)
+    eclat.fit()
+
+    print("Frequent Itemsets:")
+    eclat.print_itemsets()

@@ -1,0 +1,19 @@
+#A2Q2
+
+import pandas as pd
+from sklearn.impute import SimpleImputer
+
+df = pd.read_csv('iris.csv')
+
+print("Original Dataset:")
+print(df)
+
+numeric_cols = df.select_dtypes(include=['number']).columns
+
+imputer = SimpleImputer(strategy='mean')
+    
+for col in numeric_cols:
+    df[col] = imputer.fit_transform(df[[col]])
+
+print("\nDataset after replacing null values with mean:")
+print(df)

@@ -1,0 +1,30 @@
+#Q3d - Practice
+
+import math
+
+def dot_product(vec1, vec2):
+    return sum(a * b for a, b in zip(vec1, vec2))
+
+def vector_magnitude(vec):
+    return math.sqrt(sum(a ** 2 for a in vec))
+
+def cosine_similarity(vec1, vec2):
+    if len(vec1) != len(vec2):
+        raise ValueError("Vectors must have the same dimensionality")
+
+    dot_prod = dot_product(vec1, vec2)
+    mag1 = vector_magnitude(vec1)
+    mag2 = vector_magnitude(vec2)
+
+    similarity = dot_prod / (mag1 * mag2)
+    return similarity
+
+def main():
+    vec1 = [3, 4, 2]
+    vec2 = [1, 5, 3]
+
+    similarity = cosine_similarity(vec1, vec2)
+    print("Cosine similarity between {} and {}: {:.2f}".format(vec1, vec2, similarity))
+
+if __name__ == "__main__":
+    main()

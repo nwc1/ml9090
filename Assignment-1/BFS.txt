@@ -1,0 +1,32 @@
+from collections import defaultdict
+
+def add_edge(graph, u, v):
+    graph[u].append(v)
+    graph[v].append(u)  # Assuming an undirected graph
+
+def bfs(graph, start):
+    visited = set()
+    queue = [start]
+    visited.add(start)
+
+    while queue:
+        current_vertex = queue.pop(0)
+        print(current_vertex, end=' ')
+
+        for neighbor in graph[current_vertex]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+# Example Usage:
+
+graph = defaultdict(list)
+add_edge(graph, 0, 1)
+add_edge(graph, 0, 2)
+add_edge(graph, 2, 4)
+add_edge(graph, 2, 3)
+add_edge(graph, 3, 5)
+
+start_vertex = 0
+print(f"BFS Traversal starting from vertex {start_vertex}:")
+bfs(graph, start_vertex)
