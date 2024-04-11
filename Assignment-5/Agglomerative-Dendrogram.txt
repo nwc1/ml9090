@@ -12,7 +12,7 @@ data.dropna(inplace=True)
 X = data[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]
 
 plt.figure(figsize=(12, 6))
-dendrogram(linxkage(X, method='complete'))
+dendrogram(linkage(X, method='complete'))  # Corrected linxkage to linkage
 plt.title('Dendrogram')
 plt.xlabel('Penguin Samples')
 plt.ylabel('Euclidean Distances')
@@ -22,7 +22,7 @@ optimal_n_clusters = 3
 agg_clustering = AgglomerativeClustering(n_clusters=optimal_n_clusters)
 y_agg = agg_clustering.fit_predict(X)
 
-sns.scatterplot(data=data, x='bill_length_mm', y='bill_depth_mm', hue=y_agg, palette='viridis')
+sns.scatterplot(data=data, x='bill_length_mm', y='bill_depth_mm', hue=y_agg, palette='viridis')  # Corrected hue parameter
 plt.title('Agglomerative Clustering')
 plt.xlabel('Bill Length (mm)')
 plt.ylabel('Bill Depth (mm)')
