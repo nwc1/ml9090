@@ -1,29 +1,25 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# Load dataset
-data = pd.read_csv("Social_Network_Ads.csv")
+df = pd.read_csv('Social_Network_Ads.csv')
+X = df[['Age', 'EstimatedSalary']]
+Y = df['Purchased']
 
-# Preprocessing
-X = data.iloc[:, [2, 3]].values  # Selecting Age and EstimatedSalary as features
-y = data.iloc[:, -1].values  # Selecting Purchased as the target variable
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.4)
 
-# Splitting dataset into the Training set and Test set
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=0)
-
-# Multinomial Naive Bayes
 classifier = MultinomialNB()
-classifier.fit(X_train, y_train)
+classifier.fit(X_train, y_train) 
 
-# Predicting the Test set results
 y_pred = classifier.predict(X_test)
 
-# Evaluate the classifier
 accuracy = accuracy_score(y_test, y_pred)
+confusion = confusion_matrix(y_test, y_pred)
+report = classification_report(y_test, y_pred)
+
 print("Accuracy:", accuracy)
-print("Confusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
-print("Classification Report:")
-print(classification_report(y_test, y_pred))
+print("Confusion Matrix:\n", confusion)
+print("Classification Report:\n", report)
+
+plt.scatter(y_test, y_pred)
