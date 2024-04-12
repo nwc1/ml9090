@@ -10,3 +10,5 @@ plt.title('Scatter Plot')
 plt.xlabel('Sepal Length')
 plt.ylabel('Sepal Width')
 plt.show()
+
+#Do the same for petal.length and petal.width
