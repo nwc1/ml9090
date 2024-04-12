@@ -1,29 +1,20 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.cluster.hierarchy import dendrogram, linkage
 from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
 
-data = pd.read_csv('penguins.csv')
+df = pd.read_csv('penguins.csv')
+df.dropna(inplace=True)
+X = df[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]
 
-data.dropna(inplace=True)
-
-X = data[['bill_length_mm', 'bill_depth_mm', 'flipper_length_mm', 'body_mass_g']]
-
-plt.figure(figsize=(12, 6))
-dendrogram(linkage(X, method='complete'))  # Corrected linxkage to linkage
+dendrogram(linkage(X, method='complete'))
 plt.title('Dendrogram')
-plt.xlabel('Penguin Samples')
-plt.ylabel('Euclidean Distances')
 plt.show()
 
-optimal_n_clusters = 3
-agg_clustering = AgglomerativeClustering(n_clusters=optimal_n_clusters)
-y_agg = agg_clustering.fit_predict(X)
+agg = AgglomerativeClustering(n_clusters=3)
+agg.fit(X)
 
-sns.scatterplot(data=data, x='bill_length_mm', y='bill_depth_mm', hue=y_agg, palette='viridis')  # Corrected hue parameter
+plt.scatter(df['bill_length_mm'], df['bill_depth_mm'], c=agg.labels_, s=50)
 plt.title('Agglomerative Clustering')
-plt.xlabel('Bill Length (mm)')
-plt.ylabel('Bill Depth (mm)')
 plt.show()
