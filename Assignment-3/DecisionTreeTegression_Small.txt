@@ -1,0 +1,20 @@
+import pandas as pd
+from sklearn.tree import DecisionTreeRegressor
+import matplotlib.pyplot as plt
+
+dataset = pd.read_csv('Position_Salaries.csv')
+
+X = dataset[['Level']]
+y = dataset['Salary']
+
+regressor = DecisionTreeRegressor()
+regressor.fit(X, y)
+
+y_pred = regressor.predict(X)
+
+plt.scatter(X, y, color='red', label='Actual data')
+plt.step(X, y_pred, color='blue', label='Decision Tree Regression')
+plt.title('Decision Tree Regression')
+plt.xlabel('Position level')
+plt.ylabel('Salary')
+plt.show()
